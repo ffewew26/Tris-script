@@ -1,8 +1,8 @@
 print("Break");
 local v0 = require(game:GetService("ReplicatedStorage").Notification);
-v0.new("<Color=Cyan>Welcome to Ten Hub<Color=/>"):Display();
+v0.new("<Color=Cyan>Welcome to Tris Hub<Color=/>"):Display();
 wait(0.5);
-v0.new("<Color=Yellow>Everyone Goes to Discord to Communicate<Color=/>"):Display();
+v0.new("<Color=Blue>Everyone Goes to Discord to Communicate<Color=/>"):Display();
 wait(1);
 repeat
 	wait();
