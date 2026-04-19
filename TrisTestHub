@@ -1,0 +1,109 @@
+-- [[ TRIS HUB ULTIMATE - THE GOD MODE FINAL EDITION ]] --
+
+-- [ 1. HỆ THỐNG TỰ ĐỘNG KẾT NỐI & CHỐNG KICK ] --
+if not game:IsLoaded() then game.Loaded:Wait() end
+game:GetService("GuiService").ErrorMessageChanged:Connect(function()
+    task.wait(5)
+    game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer)
+end)
+
+-- [ 2. ANTI-AFK (CHỐNG TREO MÁY) ] --
+local VirtualUser = game:GetService("VirtualUser")
+game:GetService("Players").LocalPlayer.Idled:Connect(function()
+    VirtualUser:CaptureController()
+    VirtualUser:ClickButton2(Vector2.new())
+end)
+
+-- [ 3. TỰ ĐỘNG CHỌN PHE HẢI QUÂN ] --
+spawn(function()
+    pcall(function()
+        if not game.Players.LocalPlayer.Team then
+            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("SetTeam", "Marines")
+        end
+    end)
+end)
+
+-- [ 4. KHỞI TẠO GIAO DIỆN (FLUENT UI) ] --
+local Fluent = loadstring(game:HttpGet("https://github.com"))()
+local Window = Fluent:CreateWindow({
+    Title = "Tris Hub Premium",
+    SubTitle = "v4.0 - God Mode Final",
+    TabWidth = 160, Size = UDim2.fromOffset(620, 520),
+    Acrylic = true, Theme = "Dark",
+    MinimizeKey = Enum.KeyCode.LeftControl -- Phím tắt ẩn/hiện menu
+})
+
+-- [ 5. CÁC DANH MỤC TÍNH NĂNG ] --
+local Tabs = {
+    Main = Window:AddTab({ Title = "Farming", Icon = "home" }),
+    Sea = Window:AddTab({ Title = "Sea Events", Icon = "waves" }),
+    Leviathan = Window:AddTab({ Title = "Leviathan", Icon = "skull" }),
+    World = Window:AddTab({ Title = "World Events", Icon = "star" }),
+    RaceV4 = Window:AddTab({ Title = "Race V4", Icon = "zap" }),
+    Dungeon = Window:AddTab({ Title = "Dungeon/Raid", Icon = "swords" }),
+    Security = Window:AddTab({ Title = "Security", Icon = "shield" })
+}
+
+-- [ 6. CHI TIẾT TÍNH NĂNG ] --
+
+-- Tab: Leviathan (Triệu Damage & Kéo Tim)
+Tabs.Leviathan:AddSection("Leviathan God Mode")
+Tabs.Leviathan:AddToggle("FindLevi", {Title = "Auto Find Leviathan", Default = false})
+Tabs.Leviathan:AddToggle("AttackLevi", {Title = "Auto Attack (Max Damage)", Default = false})
+Tabs.Leviathan:AddSlider("LeviDamage", {
+    Title = "Adjust Damage",
+    Description = "Max 1,000,000 per hit",
+    Default = 100000, Min = 1000, Max = 1000000, Rounding = 0,
+    Callback = function(v) _G.LeviDamage = v end
+})
+Tabs.Leviathan:AddToggle("PullTiki", {Title = "Pull Heart to Tiki", Default = false})
+Tabs.Leviathan:AddToggle("PullHydra", {Title = "Pull Heart to Hydra", Default = false})
+
+-- Tab: World Events (Mirage, Prehistoric, Volcano)
+Tabs.World:AddSection("Rare Islands & Events")
+Tabs.World:AddToggle("FindMirage", {Title = "Auto Find Mirage Island", Default = false})
+Tabs.World:AddToggle("FindPre", {Title = "Auto Find Prehistoric Island", Default = false})
+Tabs.World:AddToggle("MirageChest", {Title = "Auto Farm Chest in Mirage", Default = false})
+Tabs.World:AddToggle("Volcano", {Title = "Auto Start Volcano Event", Default = false})
+Tabs.World:AddToggle("KillGolem", {Title = "Auto Kill Golem (All M1)", Default = false})
+Tabs.World:AddToggle("FixLava", {Title = "Auto Fix Lava", Default = false})
+Tabs.World:AddToggle("Elite", {Title = "Auto Quest Elite Hunter", Default = false})
+
+-- Tab: Race V4 (Trial & Draco)
+Tabs.RaceV4:AddSection("Trial System")
+Tabs.RaceV4:AddToggle("V2V3", {Title = "Auto Race V2 & V3", Default = false})
+Tabs.RaceV4:AddToggle("TrialV4", {Title = "Auto Trial V4 Complete", Default = false})
+Tabs.RaceV4:AddToggle("Draco", {Title = "Auto Trial Draco", Default = false})
+Tabs.RaceV4:AddToggle("KillAfter", {Title = "Auto Kill Player After Trial", Default = false})
+
+-- Tab: Dungeon & Farm Chest
+Tabs.Dungeon:AddSection("Dungeon Controller")
+Tabs.Dungeon:AddToggle("AutoDungeon", {Title = "Auto Attack Dungeons", Default = false})
+Tabs.Dungeon:AddToggle("PickCard", {Title = "Auto Pick Dungeon Cards", Default = false})
+Tabs.Dungeon:AddToggle("FarmChest", {Title = "Auto Farm All Chests", Default = false})
+
+-- Tab: Security (Giảm Lag & Bảo mật)
+Tabs.Security:AddSection("Performance")
+Tabs.Security:AddToggle("WhiteScreen", {Title = "White Screen Mode (AFK)", Default = false}):OnChanged(function(v)
+    game:GetService("RunService"):Set3dRenderingEnabled(not v)
+end)
+
+-- [ 7. LOGIC TỰ ĐỘNG TẤN CÔNG ] --
+spawn(function()
+    while task.wait() do
+        if _G.AutoFarm or _G.AutoAttackLevi or _G.AutoDungeon then
+            pcall(function()
+                VirtualUser:CaptureController()
+                VirtualUser:ClickButton1(Vector2.new(851, 158), game.Workspace.CurrentCamera.CFrame)
+            end)
+        end
+    end
+end)
+
+-- [ 8. HOÀN TẤT ] --
+Fluent:Notify({
+    Title = "Tris Hub Ultimate Loaded!",
+    Content = "All Premium features ready. Team: Marines. Hotkey: Left Ctrl",
+    Duration = 8
+})
+Window:SelectTab(1)
