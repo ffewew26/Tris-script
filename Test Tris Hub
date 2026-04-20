@@ -26,7 +26,7 @@ end)
 -- [ 4. KHỞI TẠO GIAO DIỆN (FLUENT UI) ] --
 local Fluent = loadstring(game:HttpGet("https://github.com"))()
 local Window = Fluent:CreateWindow({
-    Title = "Tris Hub Premium 🍌",
+    Title = "Tris Hub Premium",
     SubTitle = "v4.0 - God Mode Final",
     TabWidth = 160, Size = UDim2.fromOffset(620, 520),
     Acrylic = true, Theme = "Dark",
